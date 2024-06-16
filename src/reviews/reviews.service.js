@@ -11,24 +11,24 @@ const addCritic = mapProperties({
 });
 
 function update(updatedReview) {
-  return knex("reviews")
+  return knex("reviews as re")
     .select("*")
-    .where({ "reviews.review_id": updatedReview.review_id })
+    .where({ "re.review_id": updatedReview.review_id })
     .update(updatedReview)
     .then((updatedReview) => updatedReview[0]);
 }
 
 function read(review_id) {
-  return knex("reviews")
-    .join("critics", "critics.critic_id", "reviews.critic_id")
+  return knex("reviews as re")
+    .join("critics as cr", "cr.critic_id", "re.critic_id")
     .select(
-      "reviews.*",
-      "critics.critic_id as critic_id",
-      "critics.preferred_name",
-      "critics.surname",
-      "critics.organization_name",
-      "critics.created_at as created_at",
-      "critics.updated_at as updated_at"
+      "re.*",
+      "cr.critic_id as critic_id",
+      "cr.preferred_name",
+      "cr.surname",
+      "cr.organization_name",
+      "cr.created_at as created_at",
+      "cr.updated_at as updated_at"
     )
     .where({ review_id })
     .first()

@@ -6,25 +6,25 @@ function list() {
 }
 
 function listIsShowing() {
-  return knex("movies")
-    .select("movies.*")
-    .join("movies_theaters", "movies.movie_id", "movies_theaters.movie_id")
-    .groupBy("movies.movie_id")
-    .where({ "movies_theaters.is_showing": true });
+  return knex("movies as mo")
+    .select("mo.*")
+    .join("movies_theaters as mot", "mo.movie_id", "mot.movie_id")
+    .groupBy("mo.movie_id")
+    .where({ "mot.is_showing": true });
 }
 
 function read(movieId) {
-  return knex("movies")
+  return knex("movies as mo")
     .select("*")
-    .where({ "movies.movie_id": movieId })
+    .where({ "mo.movie_id": movieId })
     .first();
 }
 
 function listTheaters({ movie_id }) {
-  return knex("movies_theaters")
-    .where({ "movies_theaters.movie_id": movie_id })
-    .join("theaters", "theaters.theater_id", "movies_theaters.theater_id")
-    .select("theaters.*", "movies_theaters.movie_id", "movies_theaters.is_showing");
+  return knex("movies_theaters as mot")
+    .where({ "mot.movie_id": movie_id })
+    .join("theaters as th", "th.theater_id", "mot.theater_id")
+    .select("th.*", "mot.movie_id", "mot.is_showing");
 }
 
 function mapReviewsProperties(reviews) {
@@ -41,17 +41,17 @@ function mapReviewsProperties(reviews) {
 }
 
 function listReviews({ movie_id }) {
-  return knex("reviews")
-    .join("critics", "critics.critic_id", "reviews.critic_id")
-    .select("reviews.review_id")
-    .select("reviews.content")
-    .select("reviews.score")
-    .select("reviews.created_at")
-    .select("reviews.updated_at")
-    .select("reviews.critic_id")
-    .select("reviews.movie_id")
-    .select("critics.*")
-    .where({ "reviews.movie_id": movie_id })
+  return knex("reviews as re")
+    .join("critics as cr", "cr.critic_id", "re.critic_id")
+    .select("re.review_id")
+    .select("re.content")
+    .select("re.score")
+    .select("re.created_at")
+    .select("re.updated_at")
+    .select("re.critic_id")
+    .select("re.movie_id")
+    .select("cr.*")
+    .where({ "re.movie_id": movie_id })
     .then(mapReviewsProperties);
 }
 
