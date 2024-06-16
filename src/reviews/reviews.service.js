@@ -37,9 +37,7 @@ function read(review_id) {
 
 function destroy(reviewId) {
   return knex("reviews")
-    .select("*")
-    .where({ "reviews.review_id": reviewId })
-    .first()
+    .where({ review_id: reviewId })
     .del();
 }
 

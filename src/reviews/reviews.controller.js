@@ -17,14 +17,14 @@ async function reviewExists(request, response, next) {
   });
 }
 
-async function destroy(request, response) {
+async function destroy(request, response, next) {
   // TODO: Write your code here
   const { review } = response.locals;
-  await service.delete(review.reviewId);
+  await service.delete(review.review_id);
   response.sendStatus(204);
 }
 
-async function update(request, response) {
+async function update(request, response, next) {
   // TODO: Write your code here
   const review = response.locals.review.review_id;
   const updatedReview = { ...request.body.data, review_id: review };

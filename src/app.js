@@ -19,7 +19,7 @@ app.use("/movies", moviesRouter);
 app.use("/theaters", theatersRouter);
 app.use("/reviews", reviewsRouter);
 
-app.use(errorHandler)
 app.use(notFound)
+app.use(errorHandler)
 
 module.exports = app;
