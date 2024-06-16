@@ -1,2 +1,2 @@
 # WeLoveMovies
-Capstone project
+Capstone project for backend web development course.
