@@ -18,7 +18,6 @@ async function reviewExists(request, response, next) {
 }
 
 async function destroy(request, response, next) {
-  // TODO: Write your code here
   const { review } = response.locals;
   await service.delete(review.review_id);
   response.sendStatus(204);

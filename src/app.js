@@ -11,7 +11,6 @@ const reviewsRouter = require("./reviews/reviews.router");
 const errorHandler = require("./errors/errorHandler");
 const notFound = require("./errors/notFound");
 
-// TODO: Add your code here
 app.use(cors());
 app.use(express.json());
 
