@@ -11,9 +11,7 @@ const reviewsRouter = require("./reviews/reviews.router");
 const errorHandler = require("./errors/errorHandler");
 const notFound = require("./errors/notFound");
 
-app.use(cors({
-  origin: "https://movies-frontend-y7dd.onrender.com"
-}));
+app.use(cors());
 app.use(express.json());
 
 app.use("/movies", moviesRouter);
